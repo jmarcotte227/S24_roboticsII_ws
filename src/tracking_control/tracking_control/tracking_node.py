@@ -181,7 +181,7 @@ class TrackingNode(Node):
 
         cmd_vel = Twist()
         cmd_vel.linear.x = (x_dist-ref_dist)*Kp_x
-        cmd_vel.linear.y = (0.0-y_dist)*Kp_y
+        cmd_vel.linear.y = (y_dist)*Kp_y
         cmd_vel.angular.z = 0.0
         return cmd_vel
     
