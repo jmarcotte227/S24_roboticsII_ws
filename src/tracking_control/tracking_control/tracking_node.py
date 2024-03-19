@@ -93,8 +93,9 @@ class TrackingNode(Node):
         # You can decide to filter the detected object pose here
         # For example, you can filter the pose based on the distance from the camera
         # or the height of the object
-        # if np.linalg.norm(center_points) > 3 or center_points[2] > 0.7:
-        #     return
+        # uncommented the next two lines, not sure what to do here
+        if np.linalg.norm(center_points) > 3 or center_points[2] > 0.7:
+            return
         
         try:
             # Transform the center point from the camera frame to the world frame
@@ -141,22 +142,35 @@ class TrackingNode(Node):
             return
         
         # Get the current object pose in the robot base_footprint frame
+        #??? I think this gets the robot pose self.obj_pose should have the object position
         current_object_pose = self.get_current_object_pose()
         
         # TODO: get the control velocity command
-        cmd_vel = self.controller()
+        cmd_vel = self.controller(current_object_pose)
         
         # publish the control command
         self.pub_control_cmd.publish(cmd_vel)
         #################################################
     
-    def controller(self):
+    def controller(self, robot_pose):
         # Instructions: You can implement your own control algorithm here
         # feel free to modify the code structure, add more parameters, more input variables for the function, etc.
         
         ########### Write your code here ###########
-        
+        #initialize cmd vel to return 0 if close enough
+        cmd_vel = Twist()
+        cmd_vel.linear.x = 0
+        cmd_vel.linear.y = 0
+        cmd_vel.angular.z = 0
+        if np.norm(self.obj_pose-robot_pose)<0.3: return cmd_vel
+
         # TODO: Update the control velocity command
+        # error in the world frame
+        error = self.obj_pose-robot_pose
+
+        self.get_logger().info('error in position', error)
+
+
         cmd_vel = Twist()
         cmd_vel.linear.x = 0
         cmd_vel.linear.y = 0
