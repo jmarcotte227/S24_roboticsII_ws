@@ -169,8 +169,8 @@ class TrackingNode(Node):
         # Use x error to correct distance between object and robot
         # Use y error to center object in camera frame
 
-        Kp_x = 0.1
-        Kp_y = 0.1
+        Kp_x = 0.5
+        Kp_y = 0.5
 
         ref_dist = 0.3 #m   as described in lab document
 
@@ -180,7 +180,7 @@ class TrackingNode(Node):
 
 
         cmd_vel = Twist()
-        cmd_vel.linear.x = (ref_dist-x_dist)*Kp_x
+        cmd_vel.linear.x = (x_dist-ref_dist)*Kp_x
         cmd_vel.linear.y = (0.0-y_dist)*Kp_y
         cmd_vel.angular.z = 0.0
         return cmd_vel
