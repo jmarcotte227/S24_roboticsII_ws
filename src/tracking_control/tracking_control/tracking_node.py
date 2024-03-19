@@ -93,7 +93,8 @@ class TrackingNode(Node):
         # You can decide to filter the detected object pose here
         # For example, you can filter the pose based on the distance from the camera
         # or the height of the object
-        # uncommented the next two lines, not sure what to do here
+
+        # uncommented the next two lines, not sure what else to do here
         if np.linalg.norm(center_points) > 3 or center_points[2] > 0.7:
             return
         
@@ -163,10 +164,11 @@ class TrackingNode(Node):
         # TODO: Update the control velocity command
         # find angle between center and y 
         # use proportional controller to correct angle
-
+        # I don't know if we have access to the angles of the robot and object from here
         # Maybe we can avoid angles by having it strafe to center the object
         # Use x error to correct distance between object and robot
         # Use y error to center object in camera frame
+
         Kp_x = 0.1
         Kp_y = 0.1
 
@@ -179,8 +181,8 @@ class TrackingNode(Node):
 
         cmd_vel = Twist()
         cmd_vel.linear.x = (ref_dist-x_dist)*Kp_x
-        cmd_vel.linear.y = (0-y_dist)*Kp_y
-        cmd_vel.angular.z = 0
+        cmd_vel.linear.y = (0.0-y_dist)*Kp_y
+        cmd_vel.angular.z = 0.0
         return cmd_vel
     
         ############################################
