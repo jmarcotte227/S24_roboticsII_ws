@@ -120,8 +120,9 @@ class TrackingNode(Node):
             robot_world_y = transform.transform.translation.y
             robot_world_z = transform.transform.translation.z
             robot_world_R = q2R([transform.transform.rotation.w, transform.transform.rotation.x, transform.transform.rotation.y, transform.transform.rotation.z])
-            object_pose = robot_world_R@self.cp_pose+np.array([robot_world_x,robot_world_y,robot_world_z])
-            
+            #object_pose = robot_world_R@self.cp_pose+np.array([robot_world_x,robot_world_y,robot_world_z])
+            # Changed variable name in above line, duplicated below
+            object_pose = robot_world_R@self.obj_pose+np.array([robot_world_x,robot_world_y,robot_world_z])
         except TransformException as e:
             self.get_logger().error('Transform error: ' + str(e))
             return
@@ -142,7 +143,7 @@ class TrackingNode(Node):
             return
         
         # Get the current object pose in the robot base_footprint frame
-        #??? I think this gets the robot pose self.obj_pose should have the object position
+        # Changed to make this pose relative to robot 
         current_object_pose = self.get_current_object_pose()
         
         # TODO: get the control velocity command
@@ -152,28 +153,33 @@ class TrackingNode(Node):
         self.pub_control_cmd.publish(cmd_vel)
         #################################################
     
-    def controller(self, robot_pose):
+    def controller(self, object_pose):
         # Instructions: You can implement your own control algorithm here
         # feel free to modify the code structure, add more parameters, more input variables for the function, etc.
         
         ########### Write your code here ###########
-        #initialize cmd vel to return 0 if close enough
-        cmd_vel = Twist()
-        cmd_vel.linear.x = 0
-        cmd_vel.linear.y = 0
-        cmd_vel.angular.z = 0
-        if np.norm(self.obj_pose-robot_pose)<0.3: return cmd_vel
+
 
         # TODO: Update the control velocity command
-        # error in the world frame
-        error = self.obj_pose-robot_pose
+        # find angle between center and y 
+        # use proportional controller to correct angle
 
-        self.get_logger().info('error in position', error)
+        # Maybe we can avoid angles by having it strafe to center the object
+        # Use x error to correct distance between object and robot
+        # Use y error to center object in camera frame
+        Kp_x = 0.1
+        Kp_y = 0.1
+
+        ref_dist = 0.3 #m   as described in lab document
+
+        x_dist = object_pose[0]
+        y_dist = object_pose[1]
+
 
 
         cmd_vel = Twist()
-        cmd_vel.linear.x = 0
-        cmd_vel.linear.y = 0
+        cmd_vel.linear.x = (ref_dist-x_dist)*Kp_x
+        cmd_vel.linear.y = (0-y_dist)*Kp_y
         cmd_vel.angular.z = 0
         return cmd_vel
     
