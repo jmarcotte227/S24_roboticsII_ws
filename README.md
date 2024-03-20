@@ -1,9 +1,14 @@
 # S24_roboticsII
-ROS2 Workspace for S24 Robotics II 
+ROS2 Workspace for S24 Robotics II
+
 Team Pending:
+
 Ashlynn Allison
+
 Ryan Benson
+
 John Marcotte
+
 Alexis Tendilla
 
 ## Fork the repository
