@@ -177,7 +177,7 @@ class TrackingNode(Node):
         # Use y error to center object in camera frame
 
         Kp_x = 1
-        Kp_y = 1
+        Kp_y = 0.75
 
         ref_dist = 0.3 #m   as described in lab document
 
