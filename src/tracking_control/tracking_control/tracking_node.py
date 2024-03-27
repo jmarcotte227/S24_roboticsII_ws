@@ -188,9 +188,9 @@ class TrackingNode(Node):
         self.pose_y_error.append(y_dist)
         if self.counter == 100:
             with open("x_pose.pkl", 'wb') as file:
-                pickle.dump(self.pose_x_error)
+                pickle.dump(self.pose_x_error, file)
             with open("y_pos.pkl", 'wb') as file:
-                pickle.dump(self.pose_y_error)
+                pickle.dump(self.pose_y_error, file)
             self.get_logger().info('Data Saved')
             self.counter = 0
         else: self.counter+=1
