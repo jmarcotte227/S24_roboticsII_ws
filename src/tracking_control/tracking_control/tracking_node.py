@@ -203,9 +203,9 @@ def main(args=None):
     # Destroy the node explicitly
     tracking_node.destroy_node()
     # Shutdown the ROS client library for Python
-    with open("x_pose.pkl", 'wb') as file:
+    with open("~/codes/pending_ws/x_pose.pkl", 'wb') as file:
         pickle.dump(tracking_node.pose_x_error)
-    with open("y_pos.pkl", 'wb') as file:
+    with open("~/codes/pending_ws/y_pos.pkl", 'wb') as file:
         pickle.dump(tracking_node.pose_y_error)
     rclpy.shutdown()
 
