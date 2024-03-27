@@ -169,8 +169,8 @@ class TrackingNode(Node):
         # Use x error to correct distance between object and robot
         # Use y error to center object in camera frame
 
-        Kp_x = 0.5
-        Kp_y = 0.5
+        Kp_x = 1
+        Kp_y = 1
 
         ref_dist = 0.3 #m   as described in lab document
 
