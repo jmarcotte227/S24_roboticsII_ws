@@ -4,6 +4,7 @@ from geometry_msgs.msg import Twist, PoseStamped
 from tf2_ros import TransformException, Buffer, TransformListener
 import numpy as np
 import math
+import pickle
 
 ## Functions for quaternion and rotation matrix conversion
 ## The code is adapted from the general_robotics_toolbox package
@@ -82,6 +83,10 @@ class TrackingNode(Node):
     
         # Create timer, running at 100Hz
         self.timer = self.create_timer(0.01, self.timer_update)
+
+        # Create variable to store pose error
+        pose_x_error = []
+        pose_y_error = []
     
     def detected_obj_pose_callback(self, msg):
         #self.get_logger().info('Received Detected Object Pose')
@@ -177,6 +182,8 @@ class TrackingNode(Node):
         x_dist = object_pose[0]
         y_dist = object_pose[1]
 
+        pose_x_error.append(x_dist)
+        pose_y_error.append(y_dist)
 
 
         cmd_vel = Twist()
@@ -196,6 +203,10 @@ def main(args=None):
     # Destroy the node explicitly
     tracking_node.destroy_node()
     # Shutdown the ROS client library for Python
+    with open("x_pose.pkl", 'wb') as file:
+        pickle.dump(pose_x_error)
+    with open("y_pos.pkl", 'wb') as file:
+        pickle.dump(pose_y_error)
     rclpy.shutdown()
 
 if __name__ == '__main__':
