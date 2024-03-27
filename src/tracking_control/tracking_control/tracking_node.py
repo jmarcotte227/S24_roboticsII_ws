@@ -85,8 +85,8 @@ class TrackingNode(Node):
         self.timer = self.create_timer(0.01, self.timer_update)
 
         # Create variable to store pose error
-        pose_x_error = []
-        pose_y_error = []
+        self.pose_x_error = []
+        self.pose_y_error = []
     
     def detected_obj_pose_callback(self, msg):
         #self.get_logger().info('Received Detected Object Pose')
@@ -182,8 +182,8 @@ class TrackingNode(Node):
         x_dist = object_pose[0]
         y_dist = object_pose[1]
 
-        pose_x_error.append(x_dist)
-        pose_y_error.append(y_dist)
+        self.pose_x_error.append(x_dist)
+        self.pose_y_error.append(y_dist)
 
 
         cmd_vel = Twist()
@@ -204,9 +204,9 @@ def main(args=None):
     tracking_node.destroy_node()
     # Shutdown the ROS client library for Python
     with open("x_pose.pkl", 'wb') as file:
-        pickle.dump(pose_x_error)
+        pickle.dump(tracking_node.pose_x_error)
     with open("y_pos.pkl", 'wb') as file:
-        pickle.dump(pose_y_error)
+        pickle.dump(tracking_node.pose_y_error)
     rclpy.shutdown()
 
 if __name__ == '__main__':
