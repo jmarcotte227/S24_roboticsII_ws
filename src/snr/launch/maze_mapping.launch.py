@@ -52,8 +52,10 @@ def generate_launch_description():
     ##############################################################################
     
     return LaunchDescription([
+        rviz_arg,
+        rviz_node,
         obj_detection_node,
         gmapping_a1_launch,
-        rviz_arg,
-        rviz_node
+        
+        
     ])
