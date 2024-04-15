@@ -25,7 +25,7 @@ def generate_launch_description():
 
     
     ## Gmapping Stuff##
-    RPLIDAR_TYPE = os.getenv('a1')
+    RPLIDAR_TYPE = 'a1'
     rplidar_type_arg = DeclareLaunchArgument(name='rplidar_type', default_value=RPLIDAR_TYPE, 
                                               choices=['a1','s2','4ROS'],
                                               description='The type of robot')
