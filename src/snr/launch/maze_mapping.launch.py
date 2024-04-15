@@ -25,20 +25,19 @@ def generate_launch_description():
 
     
     ## Gmapping Stuff##
-    RPLIDAR_TYPE = 'a1'
-    rplidar_type_arg = DeclareLaunchArgument(name='rplidar_type', default_value=RPLIDAR_TYPE, 
-                                              choices=['a1','s2','4ROS'],
-                                              description='The type of robot')
+    # RPLIDAR_TYPE = 'a1'
+    # rplidar_type_arg = DeclareLaunchArgument(name='rplidar_type', default_value=RPLIDAR_TYPE, 
+    #                                           choices=['a1','s2','4ROS'],
+    #                                           description='The type of robot')
 
     gmapping_a1_launch = IncludeLaunchDescription(PythonLaunchDescriptionSource(
         [os.path.join(get_package_share_directory('yahboomcar_nav'), 'launch'),
         '/map_gmapping_a1_launch.py']),
-        condition=LaunchConfigurationEquals('rplidar_type', 'a1')
+        
     )
     ##############################################################################
     
     return LaunchDescription([
         obj_detection_node,
-        rplidar_type_arg,
         gmapping_a1_launch
     ])
