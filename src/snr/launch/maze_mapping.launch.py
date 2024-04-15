@@ -7,6 +7,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.conditions import LaunchConfigurationEquals
 import os
 from ament_index_python.packages import get_package_share_directory
+from ament_index_python.packages import get_package_share_path
 
 
 def generate_launch_description():
@@ -35,9 +36,23 @@ def generate_launch_description():
         '/map_gmapping_a1_launch.py']),
         
     )
+    package_path = get_package_share_path('snr')
+    default_rviz_config_path = package_path / 'rviz/map.rviz'
+    rviz_arg = DeclareLaunchArgument(name='rvizconfig', default_value=str(default_rviz_config_path),
+                                     description='Absolute path to rviz config file')
+
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        arguments=['-d', LaunchConfiguration('rvizconfig')],
+    )
     ##############################################################################
     
     return LaunchDescription([
         obj_detection_node,
-        gmapping_a1_launch
+        gmapping_a1_launch,
+        rviz_arg,
+        rviz_node
     ])
