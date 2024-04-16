@@ -9,9 +9,23 @@ from launch.conditions import LaunchConfigurationEquals
 import os
 from ament_index_python.packages import get_package_share_directory
 from ament_index_python.packages import get_package_share_path
+from launch_xml.launch_description_sources import XMLLaunchDescriptionSource
 
 
 def generate_launch_description():
+
+    ## Camera Stuff Uncomment which camera robot uses
+    cam_package_path = get_package_share_directory('astra_camera')
+
+    astra_camera_launch = IncludeLaunchDescription(XMLLaunchDescriptionSource(
+        [os.path.join(cam_package_path, 'launch'),
+         '/astro_pro_plus.launch.xml'])
+    )
+
+    # astra_camera_launch = IncludeLaunchDescription(XMLLaunchDescriptionSource(
+    #     [os.path.join(cam_package_path, 'launch'),
+    #      '/astra_pro.launch.xml'])
+
 
     ## object detection stuff##
     object_detection_pkg = 'object_detection'
@@ -54,6 +68,7 @@ def generate_launch_description():
     return LaunchDescription([
         rviz_arg,
         rviz_node,
+        astra_camera_launch,
         obj_detection_node,
         gmapping_a1_launch,
         
