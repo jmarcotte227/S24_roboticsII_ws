@@ -120,12 +120,12 @@ class ColorObjDetectionNode(Node):
 
         try:
             # Transform the center point from the camera frame to the world frame
-            transform = self.tf_buffer.lookup_transform('base_footprint',rgb_msg.header.frame_id,rclpy.time.Time(),rclpy.duration.Duration(seconds=0.1))
+            transform = self.tf_buffer.lookup_transform('map',rgb_msg.header.frame_id,rclpy.time.Time(),rclpy.duration.Duration(seconds=0.1))
             t_R = q2R(np.array([transform.transform.rotation.w,transform.transform.rotation.x,transform.transform.rotation.y,transform.transform.rotation.z]))
             cp_robot = t_R@center_points+np.array([transform.transform.translation.x,transform.transform.translation.y,transform.transform.translation.z])
             # Create a pose message for the detected object
             detected_obj_pose = PoseStamped()
-            detected_obj_pose.header.frame_id = 'base_footprint'
+            detected_obj_pose.header.frame_id = 'map'
             detected_obj_pose.header.stamp = rgb_msg.header.stamp
             detected_obj_pose.pose.position.x = cp_robot[0]
             detected_obj_pose.pose.position.y = cp_robot[1]

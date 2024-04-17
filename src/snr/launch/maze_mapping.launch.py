@@ -59,6 +59,7 @@ def generate_launch_description():
         '/map_gmapping_a1_launch.py']),
         
     )
+    
     package_path = get_package_share_directory('snr')
     default_rviz_config_path = os.path.join(package_path, 'map.rviz')
     rviz_arg = DeclareLaunchArgument(name='rvizconfig', default_value=str(default_rviz_config_path),
