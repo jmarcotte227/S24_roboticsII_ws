@@ -14,6 +14,9 @@ from launch_xml.launch_description_sources import XMLLaunchDescriptionSource
 
 def generate_launch_description():
 
+    ## Keyboard Control
+
+
     ## Camera Stuff Uncomment which camera robot uses
     cam_package_path = get_package_share_directory('astra_camera')
 
@@ -25,7 +28,12 @@ def generate_launch_description():
     astra_camera_launch = IncludeLaunchDescription(XMLLaunchDescriptionSource([os.path.join(cam_package_path, 'launch'),
                                                                                '/astra_pro.launch.xml']))
 
-    
+    yahboomcar_package_path = get_package_share_directory('yahboomcar_bringup')
+
+    yahboomcar_bringup_launch = IncludeLaunchDescription(PythonLaunchDescriptionSource(
+        [os.path.join(yahboomcar_package_path, 'launch'),
+         '/yahboomcar_bringup_X3_launch.py'])
+    )
 
     ## object detection stuff##
     object_detection_pkg = 'object_detection'
@@ -66,6 +74,7 @@ def generate_launch_description():
     ##############################################################################
     
     return LaunchDescription([
+        yahboomcar_bringup_launch,
         rviz_arg,
         rviz_node,
         astra_camera_launch,
