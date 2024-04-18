@@ -6,6 +6,7 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node 
+from launch_xml.launch_description_sources import XMLLaunchDescriptionSource
 
 
 def generate_launch_description():
@@ -29,6 +30,19 @@ def generate_launch_description():
         name='color_obj_detection_node',
         output="screen"
     )
+
+    ## Camera Stuff Uncomment which camera robot uses
+    cam_package_path = get_package_share_directory('astra_camera')
+
+    # astra_camera_launch = IncludeLaunchDescription(XMLLaunchDescriptionSource(
+    #     [os.path.join(cam_package_path, 'launch'),
+    #      '/astro_pro_plus.launch.xml'])
+    # )
+
+    astra_camera_launch = IncludeLaunchDescription(XMLLaunchDescriptionSource([os.path.join(cam_package_path, 'launch'),
+                                                                               '/astra_pro.launch.xml']))
+
+
     return LaunchDescription([
         DeclareLaunchArgument('use_sim_time', default_value=use_sim_time,
                               description='Use simulation (Gazebo) clock if true'),
@@ -46,4 +60,5 @@ def generate_launch_description():
                 'params_file': nav2_param_path}.items(),
         ),
         obj_detection_node,
+        astra_camera_launch
     ])
