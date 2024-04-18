@@ -14,7 +14,7 @@ def generate_launch_description():
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     map_yaml_path = LaunchConfiguration(
-        'map', default=os.path.join(snr_package_path, 'map', 'my_map.yaml'))
+        'map', default=os.path.join(snr_package_path, 'my_map.yaml'))
     nav2_param_path = LaunchConfiguration('params_file', default=os.path.join(
         package_path, 'params', 'dwa_nav_params.yaml'))
 
