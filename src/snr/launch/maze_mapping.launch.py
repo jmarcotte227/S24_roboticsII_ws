@@ -78,7 +78,6 @@ def generate_launch_description():
         yahboomcar_bringup_launch,
         rviz_arg,
         rviz_node,
-        astra_camera_launch,
         obj_detection_node,
         gmapping_a1_launch,
         
