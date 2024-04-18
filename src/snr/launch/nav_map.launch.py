@@ -5,6 +5,7 @@ from launch.actions import DeclareLaunchArgument
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node 
 
 
 def generate_launch_description():
@@ -18,6 +19,16 @@ def generate_launch_description():
     nav2_param_path = LaunchConfiguration('params_file', default=os.path.join(
         package_path, 'params', 'dwa_nav_params.yaml'))
 
+    ## object detection stuff##
+    object_detection_pkg = 'object_detection'
+    obj_detection_package_path = get_package_share_directory(object_detection_pkg)
+ 
+    obj_detection_node = Node(
+        package=object_detection_pkg,
+        executable='color_obj_detection',
+        name='color_obj_detection_node',
+        output="screen"
+    )
     return LaunchDescription([
         DeclareLaunchArgument('use_sim_time', default_value=use_sim_time,
                               description='Use simulation (Gazebo) clock if true'),
@@ -34,4 +45,5 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time,
                 'params_file': nav2_param_path}.items(),
         ),
+        obj_detection_node,
     ])

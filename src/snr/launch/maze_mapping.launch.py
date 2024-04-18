@@ -35,16 +35,7 @@ def generate_launch_description():
          '/yahboomcar_bringup_X3_launch.py'])
     )
 
-    ## object detection stuff##
-    object_detection_pkg = 'object_detection'
-    obj_detection_package_path = get_package_share_directory(object_detection_pkg)
- 
-    obj_detection_node = Node(
-        package=object_detection_pkg,
-        executable='color_obj_detection',
-        name='color_obj_detection_node',
-        output="screen"
-    )
+    
     #################################################
 
     
@@ -78,7 +69,6 @@ def generate_launch_description():
         yahboomcar_bringup_launch,
         rviz_arg,
         rviz_node,
-        obj_detection_node,
         gmapping_a1_launch,
         
         
