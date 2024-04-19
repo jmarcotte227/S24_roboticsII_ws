@@ -59,6 +59,6 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time,
                 'params_file': nav2_param_path}.items(),
         ),
-        obj_detection_node,
-        astra_camera_launch
+        # obj_detection_node,
+        # astra_camera_launch
     ])
