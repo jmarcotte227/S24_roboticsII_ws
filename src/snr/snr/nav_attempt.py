@@ -175,7 +175,7 @@ class TrackingNode(Node):
        
         if self.obj_pose is None:
             self.get_logger().info("we did it")
-            if self.ranges[539] < 0.5:
+            if self.ranges[0] < 0.5:
                 cmd_vel = Twist()
                 cmd_vel.linear.x = 0.0
                 cmd_vel.angular.z = 1.0
