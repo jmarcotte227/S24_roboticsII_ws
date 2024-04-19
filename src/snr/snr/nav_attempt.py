@@ -141,7 +141,7 @@ class TrackingNode(Node):
     ##from yahboom
     def registerScan(self, scan_data):
         if not isinstance(scan_data, LaserScan): return
-    ranges = np.array(scan_data.ranges)
+        ranges = np.array(scan_data.ranges)
    # self.Right_warning = 0
     #self.Left_warning = 0
     #self.front_warning = 0
