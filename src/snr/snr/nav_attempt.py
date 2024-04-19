@@ -174,25 +174,28 @@ class TrackingNode(Node):
         # and update the command velocity accordingly
        
         if self.obj_pose is None:
-           return 
-        try:
-            cmd_vel = Twist()
-            cmd_vel.linear.x = 1.0
-            cmd_vel.angular.z = 0.0
-            self.pub_control_cmd.publish(cmd_vel)
-        except self.ranges[539] < 0.5:
-            cmd_vel = Twist()
-            cmd_vel.linear.x = 0.0
-            cmd_vel.angular.z = 1.0
-            self.pub_control_cmd.publish(cmd_vel)
-            return
+
+            if self.ranges[539] < 0.5:
+                cmd_vel = Twist()
+                cmd_vel.linear.x = 0.0
+                cmd_vel.angular.z = 1.0
+                self.pub_control_cmd.publish(cmd_vel)
+                return
+            else:    
+                cmd_vel = Twist()
+                cmd_vel.linear.x = 1.0
+                cmd_vel.angular.z = 0.0
+                self.pub_control_cmd.publish(cmd_vel)
+                return
+        
         
         # Get the current object pose in the robot base_footprint frame
         # Changed to make this pose relative to robot 
         current_object_pose = self.get_current_object_pose()
         
         # TODO: get the control velocity command
-        cmd_vel = self.controller(current_object_pose)
+       
+       # cmd_vel = self.controller(current_object_pose)
         
         # publish the control command
         self.pub_control_cmd.publish(cmd_vel)
@@ -213,7 +216,7 @@ class TrackingNode(Node):
         # Use x error to correct distance between object and robot
         # Use y error to center object in camera frame
 
-        cmd_vel = Twist()
+    
         return cmd_vel
     
         ############################################
