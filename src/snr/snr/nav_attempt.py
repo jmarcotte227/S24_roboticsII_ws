@@ -192,12 +192,32 @@ class TrackingNode(Node):
         current_object_pose = self.get_current_object_pose()
         
         # TODO: get the control velocity command
-       # cmd_vel = self.controller(current_object_pose)
+        cmd_vel = self.controller(current_object_pose)
         
         # publish the control command
         self.pub_control_cmd.publish(cmd_vel)
         #################################################
     
+    def controller(self, object_pose):
+        # Instructions: You can implement your own control algorithm here
+        # feel free to modify the code structure, add more parameters, more input variables for the function, etc.
+        
+        ########### Write your code here ###########
+
+
+        # TODO: Update the control velocity command
+        # find angle between center and y 
+        # use proportional controller to correct angle
+        # I don't know if we have access to the angles of the robot and object from here
+        # Maybe we can avoid angles by having it strafe to center the object
+        # Use x error to correct distance between object and robot
+        # Use y error to center object in camera frame
+
+        cmd_vel = Twist()
+        return cmd_vel
+    
+        ############################################
+
 
 def main(args=None):
     # Initialize the rclpy library
