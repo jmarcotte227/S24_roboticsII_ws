@@ -67,7 +67,7 @@ class TrackingNode(Node):
     def __init__(self):
         super().__init__('tracking_node')
         self.get_logger().info('Tracking Node Started')
-        
+        self.ranges()
         # Current object pose
         self.obj_pose = None
         
@@ -141,7 +141,7 @@ class TrackingNode(Node):
     ##from yahboom
     def registerScan(self, scan_data):
         if not isinstance(scan_data, LaserScan): return
-        ranges = np.array(scan_data.ranges)
+        self.ranges = np.array(scan_data.ranges)
    # self.Right_warning = 0
     #self.Left_warning = 0
     #self.front_warning = 0
@@ -180,7 +180,7 @@ class TrackingNode(Node):
             cmd_vel.linear.x = 1.0
             cmd_vel.angular.z = 0.0
             self.pub_control_cmd.publish(cmd_vel)
-        except ranges[539] < 0.5:
+        except self.ranges[539] < 0.5:
             cmd_vel = Twist()
             cmd_vel.linear.x = 0.0
             cmd_vel.angular.z = 1.0
