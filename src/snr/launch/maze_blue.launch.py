@@ -75,12 +75,23 @@ def generate_launch_description():
         output="screen"
     )
     ##############################################################################
+    ### auto nav
+    nav_attempt_pkg = 'snr'
+    nav_attempt_package_path = get_package_share_directory(nav_attempt_pkg)
+
+    nav_attempt_node = Node(
+        package=nav_attempt_pkg,
+        executable='nav_attempt',
+        name='nav_attempt_node',
+        output="screen"
+    )
     
     return LaunchDescription([
-        yahboomcar_bringup_launch,
+        #yahboomcar_bringup_launch,
         rviz_arg,
         rviz_node,
         obj_detection_node, #A 4/18
+        nav_attempt_node, #A 4/19
         astra_camera_launch, #A 4/18
         gmapping_a1_launch,
         
