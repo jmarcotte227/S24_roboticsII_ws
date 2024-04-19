@@ -83,7 +83,7 @@ class TrackingNode(Node):
         # Create a subscriber to the detected object pose
         self.sub_detected_obj_pose = self.create_subscription(PoseStamped, '/detected_color_object_pose', self.detected_obj_pose_callback, 10)
 
-        self.sub_scan = self.create_subscription(LaserScan, '/scan', self.registerScan, 10)
+        self.sub_scan = self.create_subscription(LaserScan, '/scan',10)
     
         # Create timer, running at 100Hz
         self.timer = self.create_timer(0.01, self.timer_update)
