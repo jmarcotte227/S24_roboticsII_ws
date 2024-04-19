@@ -142,8 +142,9 @@ class TrackingNode(Node):
         return object_pose
     ##from yahboom
     def registerScan(self, scan_data):
+        print(f"Scan Data Recieved {scan_data.ranges}")
         self.ranges = np.array(scan_data.ranges)
-   # self.Right_warning = 0
+    #self.Right_warning = 0
     #self.Left_warning = 0
     #self.front_warning = 0
 
