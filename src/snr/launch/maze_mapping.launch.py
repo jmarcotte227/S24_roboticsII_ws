@@ -47,7 +47,7 @@ def generate_launch_description():
 
     gmapping_a1_launch = IncludeLaunchDescription(PythonLaunchDescriptionSource(
         [os.path.join(get_package_share_directory('yahboomcar_nav'), 'launch'),
-        '/map_cartographer_launch.py']),
+        '/map_gmapping_a1_launch.py']),
         
     )
     
