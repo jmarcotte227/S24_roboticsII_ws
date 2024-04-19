@@ -6,7 +6,7 @@ from tf2_ros import TransformException, Buffer, TransformListener
 import numpy as np
 import math
 import pickle
-from sensor_msgs.msg import scan_data 
+from sensor_msgs.msg import LaserScan
 
 ## Functions for quaternion and rotation matrix conversion
 ## The code is adapted from the general_robotics_toolbox package
