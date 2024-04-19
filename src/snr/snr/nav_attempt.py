@@ -79,7 +79,7 @@ class TrackingNode(Node):
         self.tf_listener = TransformListener(self.tf_buffer, self)
         
         # Create publisher for the control command
-        self.pub_control_cmd = self.create_publisher(Twist, '/track_cmd_vel', 10)
+        self.pub_control_cmd = self.create_publisher(Twist, '/cmd_vel', 10)
         # Create a subscriber to the detected object pose
         self.sub_detected_obj_pose = self.create_subscription(PoseStamped, '/detected_color_object_pose', self.detected_obj_pose_callback, 10)
     
