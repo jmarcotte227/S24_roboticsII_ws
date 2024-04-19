@@ -8,8 +8,8 @@ class returnNode(Node):
 
     def __init__(self):
         super().__init__('return_node')
-        self.pose_publisher_ = self.create_publisher(PoseStamped, 'goal_pose')
-        self.obj_subscriber_ = self.create_subscription(PoseStamped, 'detected_object_pose', self.relay_pose_callback)
+        self.pose_publisher_ = self.create_publisher(PoseStamped, 'goal_pose', 10)
+        self.obj_subscriber_ = self.create_subscription(PoseStamped, 'detected_object_pose', self.relay_pose_callback, 10)
 
     def relay_pose_callback(self,msg):
         start_message = PoseStamped()
