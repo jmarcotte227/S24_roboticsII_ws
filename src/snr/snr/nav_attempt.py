@@ -174,7 +174,7 @@ class TrackingNode(Node):
         # and update the command velocity accordingly
        
         if self.obj_pose is None:
-
+            self.get_logger().info("we did it")
             if self.ranges[539] < 0.5:
                 cmd_vel = Twist()
                 cmd_vel.linear.x = 0.0
