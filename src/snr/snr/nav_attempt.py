@@ -166,7 +166,7 @@ class TrackingNode(Node):
             #        return
         #self.Moving = True
 
-    def timer_update(self, ranges):
+    def timer_update(self):
         ################### Write your code here ###################
         
         # Now, the robot stops if the object is not detected
