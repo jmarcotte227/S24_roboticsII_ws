@@ -198,10 +198,10 @@ class TrackingNode(Node):
        # cmd_vel = self.controller(current_object_pose)
         
         # publish the control command
-        self.pub_control_cmd.publish(cmd_vel)
+        #self.pub_control_cmd.publish(cmd_vel)
         #################################################
     
-    def controller(self, object_pose):
+    #def controller(self, object_pose):
         # Instructions: You can implement your own control algorithm here
         # feel free to modify the code structure, add more parameters, more input variables for the function, etc.
         
@@ -217,7 +217,7 @@ class TrackingNode(Node):
         # Use y error to center object in camera frame
 
     
-        return cmd_vel
+        #return cmd_vel
     
         ############################################
 
