@@ -67,7 +67,7 @@ class TrackingNode(Node):
     def __init__(self):
         super().__init__('tracking_node')
         self.get_logger().info('Tracking Node Started')
-        self.ranges()
+        self.ranges = []
         # Current object pose
         self.obj_pose = None
         
