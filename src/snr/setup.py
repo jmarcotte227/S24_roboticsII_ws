@@ -24,7 +24,7 @@ setup(
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
-        'console_scripts': [ "nav_attempt = snr.nav_attempt.py:main"
+        'console_scripts': [ "nav_attempt = snr.nav_attempt:main"
         ],
     },
 )
