@@ -71,8 +71,8 @@ class ColorObjDetectionNode(Node):
         self.tf_listener = TransformListener(self.tf_buffer, self)
         
         # Create publisher for the detected object and the bounding box
-        self.pub_detected_obj = self.create_publisher(Image, '/detected_color_object',10)
-        self.pub_detected_obj_pose = self.create_publisher(PoseStamped, '/detected_color_object_pose', 10)
+        self.pub_detected_obj = self.create_publisher(Image, '/detected_color_object',1)
+        self.pub_detected_obj_pose = self.create_publisher(PoseStamped, '/detected_color_object_pose', 1)
         # Create a subscriber to the RGB and Depth images
         self.sub_rgb = Subscriber(self, Image, '/camera/color/image_raw')
         self.sub_depth = Subscriber(self, PointCloud2, '/camera/depth/points')
