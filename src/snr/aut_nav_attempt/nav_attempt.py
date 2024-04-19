@@ -6,6 +6,7 @@ from tf2_ros import TransformException, Buffer, TransformListener
 import numpy as np
 import math
 import pickle
+from sensor_msgs.msg import scan_data 
 
 ## Functions for quaternion and rotation matrix conversion
 ## The code is adapted from the general_robotics_toolbox package
@@ -137,18 +138,41 @@ class TrackingNode(Node):
             return
         
         return object_pose
-    
-    def timer_update(self, object_pose):
+    ##from yahboom
+    def registerScan(self, scan_data):
+    if not isinstance(scan_data, LaserScan): return
+    ranges = np.array(scan_data.ranges)
+   # self.Right_warning = 0
+    #self.Left_warning = 0
+    #self.front_warning = 0
+
+   # for i in range(len(ranges)):
+   # angle = (scan_data.angle_min + scan_data.angle_increment) * RAD2DEG
+        #The angle of radar information is a radian system, and here it is converted into an angle for calculation
+        #if 160 > angle > 180 - self.LaserAngle:#The angle is based on the structure of the radar to set the judgment range
+         #   if ranges[i] < self.ResponseDist*1.5: 
+        #range[i] is the result of radar scanning, which in this case refers to distance information
+          #      self.Right_warning += 1
+        #if - 160 < angle < self.LaserAngle - 180:
+         #   if ranges[i] < self.ResponseDist*1.5:
+          #      self.Left_warning += 1
+       # if abs(angle) > 160:
+        #    if ranges[i] <= self.ResponseDist*1.5:
+         #       self.front_warning += 1
+        #if self.Joy_active or self.Switch == True:
+         #   if self.Moving == True:
+          #      self.pub_vel.publish(Twist())
+           #     self.Moving = not self.Moving
+            #        return
+        #self.Moving = True
+
+    def timer_update(self, ranges):
         ################### Write your code here ###################
         
         # Now, the robot stops if the object is not detected
         # But, you may want to think about what to do in this case
         # and update the command velocity accordingly
-        x_dist = object_pose[0]
-        y_dist = object_pose[1]
-        self.pose_x_error.append(x_dist)
-        self.pose_y_error.append(y_dist)
-
+       
         if self.obj_pose is None:
            return 
         try:
@@ -156,7 +180,7 @@ class TrackingNode(Node):
             cmd_vel.linear.x = 1.0
             cmd_vel.angular.z = 0.0
             self.pub_control_cmd.publish(cmd_vel)
-        except x_dist < 0.5:
+        except ranges[539] < 0.5:
             cmd_vel = Twist()
             cmd_vel.linear.x = 0.0
             cmd_vel.angular.z = 1.0
