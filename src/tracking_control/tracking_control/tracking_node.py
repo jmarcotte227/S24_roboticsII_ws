@@ -131,6 +131,7 @@ class TrackingNode(Node):
             #object_pose = robot_world_R@self.cp_pose+np.array([robot_world_x,robot_world_y,robot_world_z])
             # Changed variable name in above line, duplicated below
             object_pose = robot_world_R@self.obj_pose+np.array([robot_world_x,robot_world_y,robot_world_z])
+
         except TransformException as e:
             self.get_logger().error('Transform error: ' + str(e))
             return
